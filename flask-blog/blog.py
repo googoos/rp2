@@ -10,7 +10,7 @@ import sqlite3
 DATABASE = 'blog.db'
 USERNAME = 'admin'
 PASSWORD = 'admin'
-SECRETKEY = 'd76s1b762IM6usNMFk4qF5785k03325K'
+SECRET_KEY = 'd76s1b762IM6usNMFk4qF578'
 
 app = Flask(__name__)
 
@@ -23,7 +23,7 @@ def connect_db():
     return sqlite3.connect(app.config['DATABASE'])
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def login():
     """Login page function."""
     error = None
