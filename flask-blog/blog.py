@@ -54,7 +54,11 @@ def login():
 @login_required
 def main():
     """Main page function."""
-    return render_template('main.html')
+    g.db = connect_db()
+    cur = g.db.execute('select * from posts')
+    posts = [dict(title=row[0], post=row[1]) for row in cur.fetchall()]
+    g.db.close()
+    return render_template('main.html', posts=posts)
 
 
 @app.route('/logout')
