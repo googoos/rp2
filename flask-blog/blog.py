@@ -6,7 +6,7 @@ import os
 # configuration
 DATABASE = 'blog.db'
 USERNAME = 'admin'
-PASSWORDS = 'admin'
+PASSWORD = 'admin'
 SECRETKEY = b'\xd5r\xb1\xd6\x14\x03\xca\xb1\x1cn\xad\t\xdcj\x86:P\xdfGf\x1b\xac\r!'
 
 app = Flask(__name__)
@@ -18,15 +18,19 @@ def connect_db():
 
 @app.route('/')
 def login():
-    return render_template('login.html')
+    error = None
+    if request.method == 'POST'
+        if request.form['username'] != app.config.['USERNAME'] or \
+        request.form['password'] != app.config.['PASSWORD']:
+            error = 'Invalid Credentials. Please try again.'
+        else:
+            session['logged_in'] = True
+            return redirect(url_for('main'))
+    return render_template('login.html', error=error)
 
 @app.route('/main')
 def main():
     return render_template('main.html')
-
-@app.route('/sk')
-def skey():
-    return str(os.urandom(24))
 
 
 if __name__ == '__main__':
